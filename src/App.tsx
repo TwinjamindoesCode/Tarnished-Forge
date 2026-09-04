@@ -246,22 +246,44 @@ export const SAMPLE_WEAPONS: Weapon[] = [
 ]
 
 export const SAMPLE_ARMORS: Armor[] = [
-  // --- Helms ---
-  { id: 'aristocrat-headband', name: 'Aristocrat Headband', slot: 'head', weight: 2.4, physNeg: 2.1, poise: 0 },
-  { id: 'knight-helm', name: 'Knight Helm', slot: 'head', weight: 5.1, physNeg: 4.2, poise: 5 },
-  { id: 'bullgoat-helm', name: 'Bull-Goat Helm', slot: 'head', weight: 8.5, physNeg: 6.5, poise: 15 },
-  // --- Chest ---
-  { id: 'aristocrat-garb', name: 'Aristocrat Garb', slot: 'chest', weight: 6.2, physNeg: 8.1, poise: 4 },
-  { id: 'knight-armor', name: 'Knight Armor', slot: 'chest', weight: 13.5, physNeg: 14.5, poise: 18 },
-  { id: 'bullgoat-armor', name: 'Bull-Goat Armor', slot: 'chest', weight: 23.7, physNeg: 20.4, poise: 42 },
-  // --- Gauntlets ---
-  { id: 'aristocrat-gloves', name: 'Aristocrat Gloves', slot: 'hands', weight: 1.4, physNeg: 1.9, poise: 0 },
-  { id: 'knight-gauntlets', name: 'Knight Gauntlets', slot: 'hands', weight: 3.9, physNeg: 3.6, poise: 3 },
-  { id: 'bullgoat-gauntlets', name: 'Bull-Goat Gauntlets', slot: 'hands', weight: 6.9, physNeg: 5.5, poise: 9 },
-  // --- Greaves ---
-  { id: 'aristocrat-boots', name: 'Aristocrat Boots', slot: 'legs', weight: 3.1, physNeg: 3.4, poise: 1 },
-  { id: 'knight-greaves', name: 'Knight Greaves', slot: 'legs', weight: 7.4, physNeg: 6.8, poise: 7 },
-  { id: 'bullgoat-greaves', name: 'Bull-Goat Greaves', slot: 'legs', weight: 13.1, physNeg: 9.9, poise: 20 },
+  // --- head ---
+  { id: 'vagabond-knight-helm', name: 'Vagabond Knight Helm', slot: 'head', weight: 4, physNeg: 4, poise: 4 },
+  { id: 'blue-cloth-cowl', name: 'Blue Cloth Cowl', slot: 'head', weight: 2.7, physNeg: 2, poise: 1 },
+  { id: 'champion-headband', name: 'Champion Headband', slot: 'head', weight: 2.7, physNeg: 2, poise: 2 },
+  { id: 'bandit-mask', name: 'Bandit Mask', slot: 'head', weight: 3, physNeg: 2, poise: 1 },
+  { id: 'astrologer-hood', name: 'Astrologer Hood', slot: 'head', weight: 1.7, physNeg: 1, poise: 1 },
+  { id: 'prophet-blindfold', name: 'Prophet Blindfold', slot: 'head', weight: 1, physNeg: 0, poise: 0 },
+  { id: 'land-of-reeds-helm', name: 'Land of Reeds Helm', slot: 'head', weight: 3.6, physNeg: 3, poise: 2 },
+  { id: 'prisoner-iron-mask', name: 'Prisoner Iron Mask', slot: 'head', weight: 8.6, physNeg: 6, poise: 11 },
+  { id: 'confessor-hood', name: 'Confessor Hood', slot: 'head', weight: 3.3, physNeg: 2, poise: 2 },
+  // --- chest ---
+  { id: 'vagabond-knight-armor', name: 'Vagabond Knight Armor', slot: 'chest', weight: 10.6, physNeg: 13, poise: 15 },
+  { id: 'blue-cloth-vest', name: 'Blue Cloth Vest', slot: 'chest', weight: 7.7, physNeg: 9, poise: 6 },
+  { id: 'champion-pauldron', name: 'Champion Pauldron', slot: 'chest', weight: 5.1, physNeg: 6, poise: 3 },
+  { id: 'bandit-garb', name: 'Bandit Garb', slot: 'chest', weight: 7.7, physNeg: 8, poise: 5 },
+  { id: 'astrologer-robe', name: 'Astrologer Robe', slot: 'chest', weight: 6.3, physNeg: 6, poise: 5 },
+  { id: 'prophet-robe', name: 'Prophet Robe', slot: 'chest', weight: 5.1, physNeg: 6, poise: 2 },
+  { id: 'land-of-reeds-armor', name: 'Land of Reeds Armor', slot: 'chest', weight: 8.3, physNeg: 8, poise: 6 },
+  { id: 'prisoner-clothing', name: 'Prisoner Clothing', slot: 'chest', weight: 3.2, physNeg: 4, poise: 1 },
+  { id: 'confessor-armor', name: 'Confessor Armor', slot: 'chest', weight: 8.3, physNeg: 8, poise: 6 },
+  // --- arms ---
+  { id: 'vagabond-knight-gauntlets', name: 'Vagabond Knight Gauntlets', slot: 'hands', weight: 3.5, physNeg: 3, poise: 3 },
+  { id: 'warrior-gauntlets', name: 'Warrior Gauntlets', slot: 'hands', weight: 2.6, physNeg: 2, poise: 1 },
+  { id: 'champion-bracers', name: 'Champion Bracers', slot: 'hands', weight: 2.1, physNeg: 1, poise: 1 },
+  { id: 'bandit-manchettes', name: 'Bandit Manchettes', slot: 'hands', weight: 1, physNeg: 1, poise: 0 },
+  { id: 'astrologer-gloves', name: 'Astrologer Gloves', slot: 'hands', weight: 1.4, physNeg: 1, poise: 1 },
+  { id: 'land-of-reeds-gauntlets', name: 'Land of Reeds Gauntlets', slot: 'hands', weight: 2.8, physNeg: 2, poise: 1 },
+  { id: 'confessor-gloves', name: 'Confessor Gloves', slot: 'hands', weight: 2.8, physNeg: 2, poise: 1 },
+  // --- legs ---
+  { id: 'vagabond-knight-greaves', name: 'Vagabond Knight Greaves', slot: 'legs', weight: 5.7, physNeg: 7, poise: 8 },
+  { id: 'warrior-greaves', name: 'Warrior Greaves', slot: 'legs', weight: 4.8, physNeg: 5, poise: 4 },
+  { id: 'champion-gaiters', name: 'Champion Gaiters', slot: 'legs', weight: 3.9, physNeg: 4, poise: 3 },
+  { id: 'bandit-boots', name: 'Bandit Boots', slot: 'legs', weight: 4.4, physNeg: 4, poise: 2 },
+  { id: 'astrologer-trousers', name: 'Astrologer Trousers', slot: 'legs', weight: 3.9, physNeg: 3, poise: 3 },
+  { id: 'prophet-trousers', name: 'Prophet Trousers', slot: 'legs', weight: 3.1, physNeg: 3, poise: 1 },
+  { id: 'land-of-reeds-greaves', name: 'Land of Reeds Greaves', slot: 'legs', weight: 5.1, physNeg: 5, poise: 4 },
+  { id: 'prisoner-trousers', name: 'Prisoner Trousers', slot: 'legs', weight: 2, physNeg: 2, poise: 1 },
+  { id: 'confessor-boots', name: 'Confessor Boots', slot: 'legs', weight: 4.8, physNeg: 4, poise: 3 },
 ]
 
 export const WEAPONS = SAMPLE_WEAPONS
@@ -608,94 +630,90 @@ export type StarterLoadout = {
 }
 
 export const STARTER_LOADOUT: Record<StartingClass, StarterLoadout> = {
+  // The real Wretch starts at level 1 with a Club and no armor at all.
   Wretch: {
     weapon: 'dagger',
-    armor: {
-      head: 'aristocrat-headband',
-      chest: 'aristocrat-garb',
-      hands: 'aristocrat-gloves',
-      legs: 'aristocrat-boots',
-    },
+    armor: {},
   },
   Vagabond: {
     weapon: 'longsword',
     armor: {
-      head: 'knight-helm',
-      chest: 'knight-armor',
-      hands: 'knight-gauntlets',
-      legs: 'knight-greaves',
+      head: 'vagabond-knight-helm',
+      chest: 'vagabond-knight-armor',
+      hands: 'vagabond-knight-gauntlets',
+      legs: 'vagabond-knight-greaves',
     },
   },
   Warrior: {
     weapon: 'longsword',
     armor: {
-      head: 'aristocrat-headband',
-      chest: 'aristocrat-garb',
-      hands: 'aristocrat-gloves',
-      legs: 'aristocrat-boots',
+      head: 'blue-cloth-cowl',
+      chest: 'blue-cloth-vest',
+      hands: 'warrior-gauntlets',
+      legs: 'warrior-greaves',
     },
   },
   Hero: {
     weapon: 'battle-axe',
     armor: {
-      head: 'knight-helm',
-      chest: 'knight-armor',
-      hands: 'knight-gauntlets',
-      legs: 'knight-greaves',
+      head: 'champion-headband',
+      chest: 'champion-pauldron',
+      hands: 'champion-bracers',
+      legs: 'champion-gaiters',
     },
   },
   Bandit: {
     weapon: 'dagger',
     armor: {
-      head: 'aristocrat-headband',
-      chest: 'aristocrat-garb',
-      hands: 'aristocrat-gloves',
-      legs: 'aristocrat-boots',
+      head: 'bandit-mask',
+      chest: 'bandit-garb',
+      hands: 'bandit-manchettes',
+      legs: 'bandit-boots',
     },
   },
   Astrologer: {
     weapon: 'rapier',
     armor: {
-      head: 'aristocrat-headband',
-      chest: 'aristocrat-garb',
-      hands: 'aristocrat-gloves',
-      legs: 'aristocrat-boots',
+      head: 'astrologer-hood',
+      chest: 'astrologer-robe',
+      hands: 'astrologer-gloves',
+      legs: 'astrologer-trousers',
     },
   },
+  // The real Prophet has no arms piece in its starting kit.
   Prophet: {
     weapon: 'longsword',
     armor: {
-      head: 'aristocrat-headband',
-      chest: 'aristocrat-garb',
-      hands: 'aristocrat-gloves',
-      legs: 'aristocrat-boots',
+      head: 'prophet-blindfold',
+      chest: 'prophet-robe',
+      legs: 'prophet-trousers',
     },
   },
   Confessor: {
     weapon: 'longsword',
     armor: {
-      head: 'knight-helm',
-      chest: 'knight-armor',
-      hands: 'knight-gauntlets',
-      legs: 'knight-greaves',
+      head: 'confessor-hood',
+      chest: 'confessor-armor',
+      hands: 'confessor-gloves',
+      legs: 'confessor-boots',
     },
   },
   Samurai: {
     weapon: 'uchigatana',
     armor: {
-      head: 'knight-helm',
-      chest: 'knight-armor',
-      hands: 'knight-gauntlets',
-      legs: 'knight-greaves',
+      head: 'land-of-reeds-helm',
+      chest: 'land-of-reeds-armor',
+      hands: 'land-of-reeds-gauntlets',
+      legs: 'land-of-reeds-greaves',
     },
   },
+  // The real Prisoner has no arms piece in its starting kit.
   Prisoner: {
     weapon: 'longsword',
     armor: {
-      head: 'aristocrat-headband',
-      chest: 'aristocrat-garb',
-      hands: 'aristocrat-gloves',
-      legs: 'aristocrat-boots',
+      head: 'prisoner-iron-mask',
+      chest: 'prisoner-clothing',
+      legs: 'prisoner-trousers',
     },
   },
 }
