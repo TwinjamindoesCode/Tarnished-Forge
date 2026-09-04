@@ -119,12 +119,13 @@ export type Armor = {
 /* ---------- Sample local dataset (paste full data here) ---------- */
 
 export const SAMPLE_WEAPONS: Weapon[] = [
+  // --- Vagabond Starter ---
   {
     id: 'longsword',
     name: 'Longsword',
     category: 'Straight Sword',
     weight: 3.0,
-    baseAttack: 120,
+    baseAttack: 110,
     requirements: [
       { stat: 'str', amount: 10 },
       { stat: 'dex', amount: 10 },
@@ -134,6 +135,103 @@ export const SAMPLE_WEAPONS: Weapon[] = [
       { stat: 'dex', grade: 'D' },
     ],
   },
+  // --- Warrior Starter ---
+  {
+    id: 'scimitar',
+    name: 'Scimitar',
+    category: 'Curved Sword',
+    weight: 3.0,
+    baseAttack: 106,
+    requirements: [
+      { stat: 'str', amount: 7 },
+      { stat: 'dex', amount: 13 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'D' },
+      { stat: 'dex', grade: 'D' },
+    ],
+  },
+  // --- Hero Starter ---
+  {
+    id: 'battle-axe',
+    name: 'Battle Axe',
+    category: 'Axe',
+    weight: 4.5,
+    baseAttack: 123,
+    requirements: [
+      { stat: 'str', amount: 12 },
+      { stat: 'dex', amount: 8 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'D' },
+      { stat: 'dex', grade: 'D' },
+    ],
+  },
+  // --- Bandit Starter ---
+  {
+    id: 'great-knife',
+    name: 'Great Knife',
+    category: 'Dagger',
+    weight: 1.5,
+    baseAttack: 75,
+    requirements: [
+      { stat: 'str', amount: 6 },
+      { stat: 'dex', amount: 12 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'E' },
+      { stat: 'dex', grade: 'C' },
+    ],
+  },
+  // --- Astrologer Starter ---
+  {
+    id: 'short-sword',
+    name: 'Short Sword',
+    category: 'Straight Sword',
+    weight: 3.0,
+    baseAttack: 102,
+    requirements: [
+      { stat: 'str', amount: 8 },
+      { stat: 'dex', amount: 10 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'D' },
+      { stat: 'dex', grade: 'D' },
+    ],
+  },
+  // --- Prophet Starter ---
+  {
+    id: 'short-spear',
+    name: 'Short Spear',
+    category: 'Spear',
+    weight: 4.0,
+    baseAttack: 112,
+    requirements: [
+      { stat: 'str', amount: 10 },
+      { stat: 'dex', amount: 10 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'D' },
+      { stat: 'dex', grade: 'D' },
+    ],
+  },
+  // --- Confessor Starter ---
+  {
+    id: 'broadsword',
+    name: 'Broadsword',
+    category: 'Straight Sword',
+    weight: 4.0,
+    baseAttack: 117,
+    requirements: [
+      { stat: 'str', amount: 10 },
+      { stat: 'dex', amount: 10 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'D' },
+      { stat: 'dex', grade: 'E' },
+    ],
+  },
+  // --- Samurai Starter ---
   {
     id: 'uchigatana',
     name: 'Uchigatana',
@@ -149,6 +247,37 @@ export const SAMPLE_WEAPONS: Weapon[] = [
       { stat: 'dex', grade: 'D' },
     ],
   },
+  // --- Prisoner Starter ---
+  {
+    id: 'estoc',
+    name: 'Estoc',
+    category: 'Thrusting Sword',
+    weight: 3.0,
+    baseAttack: 107,
+    requirements: [
+      { stat: 'str', amount: 11 },
+      { stat: 'dex', amount: 13 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'E' },
+      { stat: 'dex', grade: 'C' },
+    ],
+  },
+  // --- Wretch Starter ---
+  {
+    id: 'club',
+    name: 'Club',
+    category: 'Hammer',
+    weight: 3.5,
+    baseAttack: 103,
+    requirements: [
+      { stat: 'str', amount: 10 },
+    ],
+    scaling: [
+      { stat: 'str', grade: 'C' },
+    ],
+  },
+  // --- Extras ---
   {
     id: 'greatsword',
     name: 'Greatsword',
@@ -197,54 +326,8 @@ export const SAMPLE_WEAPONS: Weapon[] = [
       { stat: 'dex', grade: 'E' },
       { stat: 'fai', grade: 'D' },
     ],
-  },
-  // --- Low-requirement starters (fill out class starting-kit coverage) ---
-  {
-    id: 'dagger',
-    name: 'Dagger',
-    category: 'Dagger',
-    weight: 1.0,
-    baseAttack: 68,
-    requirements: [
-      { stat: 'str', amount: 5 },
-      { stat: 'dex', amount: 9 },
-    ],
-    scaling: [
-      { stat: 'str', grade: 'E' },
-      { stat: 'dex', grade: 'D' },
-    ],
-  },
-  {
-    id: 'battle-axe',
-    name: 'Battle Axe',
-    category: 'Axe',
-    weight: 6.0,
-    baseAttack: 129,
-    requirements: [
-      { stat: 'str', amount: 12 },
-      { stat: 'dex', amount: 8 },
-    ],
-    scaling: [
-      { stat: 'str', grade: 'C' },
-      { stat: 'dex', grade: 'D' },
-    ],
-  },
-  {
-    id: 'rapier',
-    name: 'Rapier',
-    category: 'Thrusting Sword',
-    weight: 3.0,
-    baseAttack: 92,
-    requirements: [
-      { stat: 'str', amount: 7 },
-      { stat: 'dex', amount: 11 },
-    ],
-    scaling: [
-      { stat: 'dex', grade: 'C' },
-    ],
-  },
+  }
 ]
-
 export const SAMPLE_ARMORS: Armor[] = [
   // --- head ---
   { id: 'vagabond-knight-helm', name: 'Vagabond Knight Helm', slot: 'head', weight: 4, physNeg: 4, poise: 4 },
