@@ -22,8 +22,6 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { EldenRingOptimizer } from './EldenRingOptimizer';
-import armorData from './data/armors.json';
-import weaponData from './data/weapons.json';
 
 /* ===========================================================================
  * Data & calculations (was lib/eldenring.ts)
