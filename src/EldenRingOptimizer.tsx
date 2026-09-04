@@ -1,5 +1,5 @@
 ```tsx
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 export interface StatItem {
   name: string;
@@ -55,7 +55,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
   });
 
   const [isTwoHanding, setIsTwoHanding] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
 
   const maxEquipLoad = useMemo(() => {
@@ -69,7 +69,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
   }, [stats.end]);
 
   const getScalingMultiplier = (tier: string): number => {
-    switch (tier?.toUpperCase()) {
+    switch (String(tier ?? '').toUpperCase()) {
       case 'S':
         return 1.4;
       case 'A':
@@ -93,12 +93,12 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
     twoHanding: boolean
   ): number => {
     const baseAttack = (weapon.attack ?? []).reduce(
-      (acc, curr) => acc + (Number(curr.amount) || 0),
+      (acc, curr) => acc + (Number(curr?.amount) || 0),
       0
     );
 
-    const bonusAR = (weapon.scaling ?? []).reduce((acc, s) => {
-      const statName = String(s.name ?? '').toLowerCase();
+    const bonusAR = (weapon.scaling ?? []).reduce((acc, scaling) => {
+      const statName = String(scaling?.name ?? '').toLowerCase();
       let statValue = 0;
 
       if (statName.includes('str')) {
@@ -118,7 +118,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
       return (
         acc +
         baseAttack *
-          getScalingMultiplier(String(s.amount ?? '')) *
+          getScalingMultiplier(String(scaling?.amount ?? '')) *
           (statValue / 100)
       );
     }, 0);
@@ -131,12 +131,12 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
       ? Math.floor(stats.str * 1.5)
       : stats.str;
 
-    let filtered = weaponData.filter((weapon) => {
+    let filtered = (weaponData ?? []).filter((weapon) => {
       const requirements = weapon.requirements ?? [];
 
       return requirements.every((req) => {
-        const reqName = String(req.name ?? '').toLowerCase();
-        const reqAmount = Number(req.amount) || 0;
+        const reqName = String(req?.name ?? '').toLowerCase();
+        const reqAmount = Number(req?.amount) || 0;
 
         if (reqName.includes('str')) {
           return effectiveStr >= reqAmount;
@@ -168,29 +168,26 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
       );
     }
 
-    const withAR = filtered.map((weapon) => ({
-      ...weapon,
-      calculatedAR: calculateAR(weapon, stats, isTwoHanding),
-    }));
-
-    return withAR.sort((a, b) => b.calculatedAR - a.calculatedAR);
+    return filtered
+      .map((weapon) => ({
+        ...weapon,
+        calculatedAR: calculateAR(weapon, stats, isTwoHanding),
+      }))
+      .sort((a, b) => b.calculatedAR - a.calculatedAR);
   }, [weaponData, stats, isTwoHanding, selectedCategory]);
 
   const categories = useMemo(() => {
-    return [
-      'All',
-      ...Array.from(
-        new Set(
-          weaponData
-            .map((weapon) => weapon.category)
-            .filter(Boolean)
-        )
-      ),
-    ];
+    const weaponCategories = (weaponData ?? [])
+      .map((weapon) => weapon.category)
+      .filter(Boolean);
+
+    return ['All', ...Array.from(new Set(weaponCategories))];
   }, [weaponData]);
 
   const optimizedArmor = useMemo(() => {
-    if (!selectedWeapon) return null;
+    if (!selectedWeapon) {
+      return null;
+    }
 
     const medRollAllowance =
       maxEquipLoad * 0.7 - (selectedWeapon.weight || 0);
@@ -199,39 +196,26 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
       armor: Armor,
       arrayName: 'dmgNegation' | 'resistance',
       statName: string
-    ) => {
+    ): number => {
       const statsArray = armor[arrayName] ?? [];
 
       return (
-        statsArray.find((x) => x.name === statName)?.amount ?? 0
+        statsArray.find((item) => item?.name === statName)?.amount ?? 0
       );
     };
 
-    const efficiencyScore = (armor: Armor) => {
-      const poise = getStat(
-        armor,
-        'resistance',
-        'Poise'
-      );
+    const efficiencyScore = (armor: Armor): number => {
+      const poise = getStat(armor, 'resistance', 'Poise');
+      const physical = getStat(armor, 'dmgNegation', 'Phy');
 
-      const physical = getStat(
-        armor,
-        'dmgNegation',
-        'Phy'
-      );
-
-      return (
-        (poise * 2 + physical) /
-        (armor.weight || 1)
-      );
+      return (poise * 2 + physical) / (armor.weight || 1);
     };
 
-    const getTop15 = (category: string) => {
-      return armorData
+    const getTop15 = (category: string): Armor[] => {
+      return (armorData ?? [])
         .filter((armor) => armor.category === category)
         .sort(
-          (a, b) =>
-            efficiencyScore(b) - efficiencyScore(a)
+          (a, b) => efficiencyScore(b) - efficiencyScore(a)
         )
         .slice(0, 15);
     };
@@ -245,37 +229,29 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
     let maxScore = -1;
     let bestWeight = 0;
 
-    for (const h of helms) {
-      for (const c of chests) {
-        for (const g of gauntlets) {
-          for (const l of legs) {
-            const w =
-              (h.weight || 0) +
-              (c.weight || 0) +
-              (g.weight || 0) +
-              (l.weight || 0);
+    for (const helm of helms) {
+      for (const chest of chests) {
+        for (const gauntlet of gauntlets) {
+          for (const leg of legs) {
+            const weight =
+              (helm.weight || 0) +
+              (chest.weight || 0) +
+              (gauntlet.weight || 0) +
+              (leg.weight || 0);
 
-            if (w <= medRollAllowance) {
-              const score = [h, c, g, l].reduce(
-                (acc, piece) =>
-                  acc +
-                  getStat(
-                    piece,
-                    'resistance',
-                    'Poise'
-                  ) +
-                  getStat(
-                    piece,
-                    'dmgNegation',
-                    'Phy'
-                  ),
+            if (weight <= medRollAllowance) {
+              const score = [helm, chest, gauntlet, leg].reduce(
+                (total, piece) =>
+                  total +
+                  getStat(piece, 'resistance', 'Poise') +
+                  getStat(piece, 'dmgNegation', 'Phy'),
                 0
               );
 
               if (score > maxScore) {
                 maxScore = score;
-                bestCombo = [h, c, g, l];
-                bestWeight = w;
+                bestCombo = [helm, chest, gauntlet, leg];
+                bestWeight = weight;
               }
             }
           }
@@ -283,13 +259,15 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
       }
     }
 
-    return bestCombo.length > 0
-      ? {
-          combo: bestCombo,
-          weight: bestWeight,
-          score: maxScore,
-        }
-      : null;
+    if (bestCombo.length === 0) {
+      return null;
+    }
+
+    return {
+      combo: bestCombo,
+      weight: bestWeight,
+      score: maxScore,
+    };
   }, [armorData, selectedWeapon, maxEquipLoad]);
 
   const currentEquipLoad =
@@ -297,7 +275,9 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
     (optimizedArmor?.weight || 0);
 
   const loadPercentage =
-    (currentEquipLoad / maxEquipLoad) * 100;
+    maxEquipLoad > 0
+      ? (currentEquipLoad / maxEquipLoad) * 100
+      : 0;
 
   const loadStatus =
     loadPercentage <= 30
@@ -315,10 +295,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
   ) => {
     setStats((prev) => ({
       ...prev,
-      [stat]: Math.max(
-        1,
-        parseInt(value) || 1
-      ),
+      [stat]: Math.max(1, parseInt(value, 10) || 1),
     }));
   };
 
@@ -329,7 +306,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
       </h2>
 
       <div className="grid grid-cols-6 gap-2 mb-6">
-        {Object.entries(stats).map(([key, val]) => (
+        {Object.entries(stats).map(([key, value]) => (
           <div key={key} className="flex flex-col">
             <label className="uppercase text-xs font-bold mb-1">
               {key}
@@ -338,11 +315,11 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
             <input
               type="number"
               className="border p-2 rounded"
-              value={val}
-              onChange={(e) =>
+              value={value}
+              onChange={(event) =>
                 handleStatChange(
                   key as keyof UserStats,
-                  e.target.value
+                  event.target.value
                 )
               }
             />
@@ -356,22 +333,19 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
             <input
               type="checkbox"
               checked={isTwoHanding}
-              onChange={(e) =>
-                setIsTwoHanding(e.target.checked)
+              onChange={(event) =>
+                setIsTwoHanding(event.target.checked)
               }
               className="form-checkbox"
             />
 
-            <span>
-              Two-Handing Weapon (1.5x STR)
-            </span>
+            <span>Two-Handing Weapon (1.5x STR)</span>
           </label>
         </div>
 
         <div className="text-right">
           <p className="font-semibold">
-            Max Equip Load:{' '}
-            {maxEquipLoad.toFixed(1)}
+            Max Equip Load: {maxEquipLoad.toFixed(1)}
           </p>
 
           <p>
@@ -402,15 +376,12 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
             <select
               className="border p-1 rounded"
               value={selectedCategory}
-              onChange={(e) =>
-                setSelectedCategory(e.target.value)
+              onChange={(event) =>
+                setSelectedCategory(event.target.value)
               }
             >
               {categories.map((category) => (
-                <option
-                  key={category}
-                  value={category}
-                >
+                <option key={category} value={category}>
                   {category}
                 </option>
               ))}
@@ -418,36 +389,32 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
           </div>
 
           <div className="h-96 overflow-y-auto border rounded p-2">
-            {eligibleWeapons.length === 0 ? (
+            {eligibleWeapons.length === 0 && (
               <p className="text-gray-500">
                 No weapons meet requirements.
               </p>
-            ) : null}
+            )}
 
             {eligibleWeapons.map((weapon) => (
               <div
                 key={weapon.id}
-                className={`p-2 border-b cursor-pointer hover:bg-blue-50 ${
-                  selectedWeapon?.id === weapon.id
-                    ? 'bg-blue-100'
-                    : ''
-                }`}
-                onClick={() =>
-                  setSelectedWeapon(weapon)
+                className={
+                  `p-2 border-b cursor-pointer hover:bg-blue-50 ${
+                    selectedWeapon?.id === weapon.id
+                      ? 'bg-blue-100'
+                      : ''
+                  }`
                 }
+                onClick={() => setSelectedWeapon(weapon)}
               >
                 <div className="flex justify-between font-semibold">
                   <span>{weapon.name}</span>
-                  <span>
-                    {weapon.calculatedAR} AR
-                  </span>
+                  <span>{weapon.calculatedAR} AR</span>
                 </div>
 
                 <div className="text-xs text-gray-600 flex justify-between">
                   <span>{weapon.category}</span>
-                  <span>
-                    Wt: {weapon.weight}
-                  </span>
+                  <span>Wt: {weapon.weight}</span>
                 </div>
               </div>
             ))}
@@ -462,54 +429,46 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
           <div className="border rounded p-4 h-96 bg-gray-50">
             {!selectedWeapon ? (
               <p className="text-gray-500">
-                Select a weapon to optimize armor
-                for Med Roll.
+                Select a weapon to optimize armor for Med Roll.
               </p>
             ) : optimizedArmor ? (
               <div className="space-y-4">
-                {optimizedArmor.combo.map(
-                  (armor) => (
-                    <div
-                      key={armor.id}
-                      className="flex justify-between items-center p-2 bg-white border rounded"
-                    >
-                      <div>
-                        <p className="font-bold">
-                          {armor.name}
-                        </p>
+                {optimizedArmor.combo.map((armor) => (
+                  <div
+                    key={armor.id}
+                    className="flex justify-between items-center p-2 bg-white border rounded"
+                  >
+                    <div>
+                      <p className="font-bold">
+                        {armor.name}
+                      </p>
 
-                        <p className="text-xs text-gray-500">
-                          {armor.category}
-                        </p>
-                      </div>
-
-                      <p className="text-sm font-semibold">
-                        {armor.weight} Wt
+                      <p className="text-xs text-gray-500">
+                        {armor.category}
                       </p>
                     </div>
-                  )
-                )}
+
+                    <p className="text-sm font-semibold">
+                      {armor.weight} Wt
+                    </p>
+                  </div>
+                ))}
 
                 <div className="pt-4 border-t mt-4">
                   <p className="flex justify-between">
-                    <strong>
-                      Total Armor Weight:
-                    </strong>{' '}
+                    <strong>Total Armor Weight:</strong>{' '}
                     {optimizedArmor.weight.toFixed(1)}
                   </p>
 
                   <p className="flex justify-between">
-                    <strong>
-                      Optimization Score:
-                    </strong>{' '}
+                    <strong>Optimization Score:</strong>{' '}
                     {optimizedArmor.score.toFixed(1)}
                   </p>
                 </div>
               </div>
             ) : (
               <p className="text-red-500">
-                No combination found that allows Medium
-                Roll with this weapon.
+                No combination found that allows Medium Roll with this weapon.
               </p>
             )}
           </div>
