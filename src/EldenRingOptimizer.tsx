@@ -482,4 +482,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
     </div>
   );
 };
+};
+
+export default EldenRingOptimizer;
 ```
