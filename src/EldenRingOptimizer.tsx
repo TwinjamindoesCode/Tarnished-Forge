@@ -396,15 +396,26 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
             )}
 
             {eligibleWeapons.map((weapon) => (
-              <div
-                key={weapon.id}
-                className={
-                  `p-2 border-b cursor-pointer hover:bg-blue-50 ${
-                    selectedWeapon?.id === weapon.id
-                      ? 'bg-blue-100'
-                      : ''
-                  }`
-                }
+  <div
+    key={weapon.id}
+    className={
+      selectedWeapon?.id === weapon.id
+        ? 'p-2 border-b cursor-pointer hover:bg-blue-50 bg-blue-100'
+        : 'p-2 border-b cursor-pointer hover:bg-blue-50'
+    }
+    onClick={() => setSelectedWeapon(weapon)}
+  >
+    <div className="flex justify-between font-semibold">
+      <span>{weapon.name}</span>
+      <span>{weapon.calculatedAR} AR</span>
+    </div>
+
+    <div className="text-xs text-gray-600 flex justify-between">
+      <span>{weapon.category}</span>
+      <span>Wt: {weapon.weight}</span>
+    </div>
+  </div>
+))}
                 onClick={() => setSelectedWeapon(weapon)}
               >
                 <div className="flex justify-between font-semibold">
