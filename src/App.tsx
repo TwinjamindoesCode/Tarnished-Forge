@@ -21,7 +21,10 @@ import {
   Check,
   type LucideIcon,
 } from 'lucide-react'
-import { EldenRingOptimizer } from './EldenRingOptimizer';
+
+import { EldenRingOptimizer } from './EldenRingOptimizer'
+import armorData from './data/armors.json'
+import weaponData from './data/weapons.json'
 
 /* ===========================================================================
  * Data & calculations (was lib/eldenring.ts)
@@ -2062,7 +2065,10 @@ export default function App() {
           <div className="flex size-10 items-center justify-center rounded border border-primary/40 bg-primary/10 text-primary">
             <Swords className="size-5" aria-hidden="true" />
           </div>
-          <EldenRingOptimizer armorData={armorData} weaponData={weaponData}/>
+          <EldenRingOptimizer
+  armorData={armorData}
+  weaponData={weaponData}
+/>
           <div>
             <h1 className="font-serif text-xl font-bold tracking-wide text-primary sm:text-2xl">
               Tarnished Forge
