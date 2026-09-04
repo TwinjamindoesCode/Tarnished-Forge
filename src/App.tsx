@@ -1,7 +1,5 @@
 import { useMemo, useState } from 'react'
-import { EldenRingOptimizer } from './EldenRingOptimizer';
-import armorData from './data/armors.json';
-import weaponData from './data/weapons.json';
+import {
   Swords,
   UserRound,
   Shirt,
@@ -23,6 +21,9 @@ import weaponData from './data/weapons.json';
   Check,
   type LucideIcon,
 } from 'lucide-react'
+import { EldenRingOptimizer } from './EldenRingOptimizer';
+import armorData from './data/armors.json';
+import weaponData from './data/weapons.json';
 
 /* ===========================================================================
  * Data & calculations (was lib/eldenring.ts)
