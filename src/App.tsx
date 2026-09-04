@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import {
 import { EldenRingOptimizer } from './EldenRingOptimizer';
 import armorData from './data/armors.json';
 import weaponData from './data/weapons.json';
