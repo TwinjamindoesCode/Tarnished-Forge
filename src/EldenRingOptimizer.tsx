@@ -1,4 +1,3 @@
-```tsx
 import React, { useMemo, useState } from 'react';
 
 export interface StatItem {
@@ -120,7 +119,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
           total +
           baseAttack *
             getScalingMultiplier(String(scaling?.amount ?? '')) *
-            (statValue / 100)
+          (statValue / 100)
         );
       },
       0
@@ -220,8 +219,7 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
       return (armorData ?? [])
         .filter((armor) => armor.category === category)
         .sort(
-          (a, b) =>
-            efficiencyScore(b) - efficiencyScore(a)
+          (a, b) => efficiencyScore(b) - efficiencyScore(a)
         )
         .slice(0, 15);
     };
@@ -482,7 +480,3 @@ export const EldenRingOptimizer: React.FC<OptimizerProps> = ({
     </div>
   );
 };
-};
-
-export default EldenRingOptimizer;
-```
